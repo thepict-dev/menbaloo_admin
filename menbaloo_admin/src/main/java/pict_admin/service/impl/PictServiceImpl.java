@@ -64,250 +64,145 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	@Resource(name = "egovIdGnrService")
 	private EgovIdGnrService egovIdGnrService;
 
+
 	@Override
-	public List<?> reference_list(PictVO pictVO) throws Exception {
-		return pictMapper.reference_list(pictVO);
+	public Integer menbal_list_cnt(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
+		return pictMapper.menbal_list_cnt(pictVO);
 	}
 
 	@Override
-	public PictVO reference_list_one(PictVO pictVO) throws Exception {
-		return pictMapper.reference_list_one(pictVO);
+	public List<PictVO> menbal_list(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
+		return pictMapper.menbal_list(pictVO);
 	}
 
 	@Override
-	public void reference_update(PictVO pictVO) throws Exception {
-		pictMapper.reference_update(pictVO);
-		
+	public void menbal_del(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
+		pictMapper.menbal_del(pictVO);
 	}
 
 	@Override
-	public void reference_insert(PictVO pictVO) throws Exception {
-		pictMapper.reference_insert(pictVO);
+	public Integer feed_list_cnt(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
+		return pictMapper.feed_list_cnt(pictVO);
 	}
 
 	@Override
-	public void reference_delete(PictVO pictVO) throws Exception {
-		pictMapper.reference_delete(pictVO);
+	public List<PictVO> feed_list(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
+		return pictMapper.feed_list(pictVO);
 	}
 
 	@Override
-	public void reference_file_delete(PictVO pictVO) throws Exception {
-		pictMapper.reference_file_delete(pictVO);
+	public void feed_del(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
+		pictMapper.feed_del(pictVO);
 	}
 
 	@Override
-	public List<?> news_list(PictVO pictVO) throws Exception {
-		return pictMapper.news_list(pictVO);
+	public void feed_reply_del(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
+		pictMapper.feed_reply_del(pictVO);
 	}
 
 	@Override
-	public PictVO news_list_one(PictVO pictVO) throws Exception {
-		return pictMapper.news_list_one(pictVO);
+	public List<PictVO> feed_reply_list(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
+		return pictMapper.feed_reply_list(pictVO);
 	}
 
 	@Override
-	public void news_update(PictVO pictVO) throws Exception {
-		pictMapper.news_update(pictVO);
-		
+	public Integer history_list_cnt(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
+		return pictMapper.history_list_cnt(pictVO);
 	}
 
 	@Override
-	public void news_insert(PictVO pictVO) throws Exception {
-		pictMapper.news_insert(pictVO);
-		
-	}
-
-	@Override
-	public void news_delete(PictVO pictVO) throws Exception {
-		pictMapper.news_delete(pictVO);
-		
-	}
-
-	@Override
-	public List<?> history_list(PictVO pictVO) throws Exception {
+	public List<PictVO> history_list(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
 		return pictMapper.history_list(pictVO);
 	}
 
 	@Override
-	public PictVO history_list_one(PictVO pictVO) throws Exception {
-		return pictMapper.history_list_one(pictVO);
+	public void history_del(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
+		pictMapper.history_del(pictVO);
 	}
 
 	@Override
-	public void history_update(PictVO pictVO) throws Exception {
-		pictMapper.history_update(pictVO);
+	public Integer event_list_cnt(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
+		return pictMapper.event_list_cnt(pictVO);
 	}
 
 	@Override
-	public void history_insert(PictVO pictVO) throws Exception {
-		pictMapper.history_insert(pictVO);
-	}
-
-	@Override
-	public void history_delete(PictVO pictVO) throws Exception {
-		pictMapper.history_delete(pictVO);
-	}
-
-	@Override
-	public List<?> user_list(PictVO pictVO) throws Exception {
-		return pictMapper.user_list(pictVO);
-	}
-
-	@Override
-	public PictVO user_list_one(PictVO pictVO) throws Exception {
-		return pictMapper.user_list_one(pictVO);
-	}
-
-	@Override
-	public void user_update(PictVO pictVO) throws Exception {
-		pictMapper.user_update(pictVO);
-		
-	}
-
-	@Override
-	public void user_insert(PictVO pictVO) throws Exception {
-		pictMapper.user_insert(pictVO);
-		
-	}
-
-	@Override
-	public void user_delete(PictVO pictVO) throws Exception {
-		pictMapper.user_delete(pictVO);
-		
-	}
-
-	@Override
-	public void user_file_delete(PictVO pictVO) throws Exception {
-		pictMapper.user_file_delete(pictVO);
-		
-	}
-
-	@Override
-	public void history_file_delete(PictVO pictVO) throws Exception {
-		pictMapper.history_file_delete(pictVO);
-		
-	}
-
-	//컨텐츠관리 - 띠배너
-	@Override
-	public List<?> board_list(PictVO pictVO) throws Exception {
-		return pictMapper.board_list(pictVO);
-	}
-
-	@Override
-	public PictVO board_list_one(PictVO pictVO) throws Exception {
-		return pictMapper.board_list_one(pictVO);
-	}
-
-	@Override
-	public void board_update(PictVO pictVO) throws Exception {
-		pictMapper.board_update(pictVO);
-		
-	}
-
-	@Override
-	public void board_insert(PictVO pictVO) throws Exception {
-		pictMapper.board_insert(pictVO);
-		
-	}
-
-	@Override
-	public void board_delete(PictVO pictVO) throws Exception {
-		pictMapper.board_delete(pictVO);
-		
-	}
-
-	@Override
-	public List<?> photo_list(PictVO pictVO) throws Exception {
-		return pictMapper.photo_list(pictVO);
-	}
-
-	@Override
-	public void photo_delete(PictVO pictVO) throws Exception {
-		pictMapper.photo_delete(pictVO);
-		
-	}
-
-	@Override
-	public List<PictVO> status_list(PictVO pictVO) throws Exception {
-		return pictMapper.status_list(pictVO);
-	}
-
-	@Override
-	public List<?> event_list(PictVO pictVO) throws Exception {
+	public List<PictVO> event_list(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
 		return pictMapper.event_list(pictVO);
 	}
 
 	@Override
 	public PictVO event_list_one(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
 		return pictMapper.event_list_one(pictVO);
 	}
 
 	@Override
 	public void event_update(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
 		pictMapper.event_update(pictVO);
 	}
 
 	@Override
 	public void event_insert(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
 		pictMapper.event_insert(pictVO);
 	}
 
 	@Override
 	public void event_delete(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
 		pictMapper.event_delete(pictVO);
 	}
-	
-	
+
 	@Override
-	public List<?> popup_list(PictVO pictVO) throws Exception {
-		return pictMapper.popup_list(pictVO);
+	public Integer course_list_cnt(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
+		return pictMapper.course_list_cnt(pictVO);
 	}
 
 	@Override
-	public PictVO popup_list_one(PictVO pictVO) throws Exception {
-		return pictMapper.popup_list_one(pictVO);
+	public List<PictVO> course_list(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
+		return pictMapper.course_list(pictVO);
 	}
 
 	@Override
-	public void popup_update(PictVO pictVO) throws Exception {
-		pictMapper.popup_update(pictVO);
+	public PictVO course_list_one(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
+		return pictMapper.course_list_one(pictVO);
 	}
 
 	@Override
-	public void popup_insert(PictVO pictVO) throws Exception {
-		pictMapper.popup_insert(pictVO);
+	public void course_update(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
+		pictMapper.course_update(pictVO);
 	}
 
 	@Override
-	public void popup_delete(PictVO pictVO) throws Exception {
-		pictMapper.popup_delete(pictVO);
+	public void course_insert(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
+		pictMapper.course_insert(pictVO);
 	}
 
 	@Override
-	public List<?> mountain_list(PictVO pictVO) throws Exception {
-		return pictMapper.mountain_list(pictVO);
+	public void course_delete(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
+		pictMapper.course_delete(pictVO);
 	}
 
-	@Override
-	public PictVO mountain_detail(PictVO pictVO) throws Exception {
-		return pictMapper.mountain_detail(pictVO);
-	}
 
-	@Override
-	public PictVO board_detail(PictVO pictVO) throws Exception {
-		return pictMapper.board_detail(pictVO);
-	}
-
-	@Override
-	public PictVO event_detail(PictVO pictVO) throws Exception {
-		return pictMapper.event_detail(pictVO);
-	}
-
-	@Override
-	public void mountain_count_insert(PictVO pictVO) throws Exception {
-		pictMapper.mountain_count_insert(pictVO);
-		
-	}
 
 }

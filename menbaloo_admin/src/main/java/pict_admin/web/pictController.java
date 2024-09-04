@@ -57,6 +57,9 @@ import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONArray;
@@ -187,43 +190,8 @@ public class pictController {
 			return "pict/main/message";
 		}
 	}
-	//사용자 리스트
-	@RequestMapping(value = "/user/user_list.do")
-	public String user_list_f(@ModelAttribute("adminVO") AdminVO adminVO, ModelMap model, HttpServletRequest request) throws Exception {
-		String session = (String)request.getSession().getAttribute("id");
-		if(session == null || session == "null") {
-			return "redirect:/pict_login.do";
-		}
-		
-		model.addAttribute("search_text",adminVO.getSearch_text());
-		
-		
-		List<?> userList = adminService.user_list(adminVO);
-		model.addAttribute("resultList", userList);
-		return "pict/user/user_list";
-	}
-	@RequestMapping(value = "/user/user_register.do")
-	public String user_register_f(@ModelAttribute("adminVO") AdminVO adminVO, ModelMap model, HttpServletRequest request) throws Exception {
-		String session = (String)request.getSession().getAttribute("id");
-		if(session == null || session == "null") {
-			return "redirect:/pict_login.do";
-		}
-		
-		if(adminVO.getId() != null && !adminVO.equals("")) {
-			//수정
-			adminVO = adminService.user_select_one(adminVO);
-			adminVO.setSaveType("update");
-			
-		}
-		else {
-			adminVO.setSaveType("insert");
-		}
-		
-		model.addAttribute("adminVO", adminVO);
-		return "pict/user/user_register";
-	}
 	
-	
+	//관리자 관리
 	@RequestMapping(value = "/user_list.do")
 	public String user_list(@ModelAttribute("adminVO") AdminVO adminVO, ModelMap model, HttpServletRequest request) throws Exception {
 		String session = (String)request.getSession().getAttribute("id");
@@ -336,14 +304,367 @@ public class pictController {
 	public String logout(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request,  ModelMap model) throws Exception {
 		request.getSession().setAttribute("id", null);
 		request.getSession().setAttribute("name", null);
-		
+		request.getSession().setAttribute("depart", null);
 		return "redirect:/pict_login.do";
 		
 	}
 	
 	
 	
-	//이벤트
+
+	//사용자 리스트
+	@RequestMapping(value = "/user/user_list.do")
+	public String user_list_f(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
+		String session = (String)request.getSession().getAttribute("id");
+		if(session == null || session == "null") {
+			return "redirect:/pict_login.do";
+		}
+		
+		int limitNumber = 20;
+		pictVO.setLimit(limitNumber);
+		Integer pageNum = pictVO.getPageNumber();
+		if(pageNum == 0) {
+			pictVO.setPageNumber(1);
+			pageNum = 1;
+		}
+
+		
+		int startNum = (pageNum - 1) * limitNumber;
+		pictVO.setStartNumber(startNum);
+		Integer totalCnt = pictService.menbal_list_cnt(pictVO);
+		int lastPageValue = (int)(Math.ceil( totalCnt * 1.0 / 20 )); 
+		pictVO.setLastPage(lastPageValue);
+		Integer s_page = pageNum - 4;
+		Integer e_page = pageNum + 5;
+		if (s_page <= 0) {
+			s_page = 1;
+			e_page = 10;
+		} 
+		if (e_page > lastPageValue){
+			e_page = lastPageValue;
+		}
+		pictVO.setStartPage(s_page);
+		pictVO.setEndPage(e_page);
+		
+
+		List<PictVO> reference_list = pictService.menbal_list(pictVO);
+
+		model.addAttribute("resultList", reference_list);
+		model.addAttribute("board_cnt", totalCnt);
+		
+		
+		model.addAttribute("pictVO", pictVO);
+		
+		return "pict/user/user_list";
+	}
+	@RequestMapping(value = "/user/menbal_del.do", method = RequestMethod.POST)
+	public String menbal_del(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
+		String session = (String)request.getSession().getAttribute("id");
+		if(session == null || session == "null") {
+			return "redirect:/pict_login.do";
+		}
+		pictService.menbal_del(pictVO);
+		
+		model.addAttribute("message", "정상적으로 삭제되었습니다.");
+		model.addAttribute("retType", ":location");
+		model.addAttribute("retUrl", "/user/user_list.do");
+		return "pict/main/message";
+		
+	}
+	@RequestMapping(value = "/user/excel_down.do")
+	public void excel_down(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		List<PictVO> attendance_list = pictService.menbal_list(pictVO);
+		HSSFWorkbook objWorkBook = new HSSFWorkbook();
+        HSSFSheet objSheet = null;
+        HSSFRow objRow = null;
+        HSSFCell objCell = null;       //셀 생성
+        //제목 폰트
+        HSSFFont font = objWorkBook.createFont();
+        HSSFFont font_title = objWorkBook.createFont();
+        font_title.setFontHeightInPoints((short)11);
+        font.setFontHeightInPoints((short)9);
+        font.setFontName("맑은고딕");
+		int rowIndex = 0;
+		
+		HSSFCellStyle styleHd_title = objWorkBook.createCellStyle(); // 제목 스타일
+		HSSFCellStyle styleHd = objWorkBook.createCellStyle();    //내용 스타일
+		
+		styleHd_title.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+		styleHd_title.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		
+		// 각항목 테두리
+		styleHd.setBorderRight(BorderStyle.THIN);
+		styleHd.setBorderLeft(BorderStyle.THIN);
+		styleHd.setBorderTop(BorderStyle.THIN);
+		styleHd.setBorderBottom(BorderStyle.THIN);
+		styleHd.setWrapText(true);//자동 줄바꿈
+
+		styleHd_title.setBorderRight(BorderStyle.THIN);
+		styleHd_title.setBorderLeft(BorderStyle.THIN);
+		styleHd_title.setBorderTop(BorderStyle.THIN);
+		styleHd_title.setBorderBottom(BorderStyle.THIN);
+					
+        objSheet = objWorkBook.createSheet("첫번째 시트");     //워크시트 생성
+		
+		
+		//헤더
+        objRow = objSheet.createRow(0);
+        objRow.setHeight ((short) 0x150);
+        
+        objCell = objRow.createCell(0);
+        objCell.setCellValue("순서");
+        objCell.setCellStyle(styleHd_title);
+
+        objCell = objRow.createCell(1);
+        objCell.setCellValue("이름");
+        objCell.setCellStyle(styleHd_title);
+		
+        objCell = objRow.createCell(2);
+        objCell.setCellValue("연락처");
+        objCell.setCellStyle(styleHd_title);
+        
+        objCell = objRow.createCell(3);
+        objCell.setCellValue("성별");
+        objCell.setCellStyle(styleHd_title);
+        
+        objCell = objRow.createCell(4);
+        objCell.setCellValue("키");
+        objCell.setCellStyle(styleHd_title);
+        
+        objCell = objRow.createCell(5);
+        objCell.setCellValue("몸무게");
+        objCell.setCellStyle(styleHd_title);
+        
+        objCell = objRow.createCell(6);
+        objCell.setCellValue("등록일");
+        objCell.setCellStyle(styleHd_title);
+        
+		//바디
+		for(int i=0; i<attendance_list.size(); i++) {
+			//순서
+			objRow = objSheet.createRow(i+1);
+	        objRow.setHeight ((short) 0x150);
+	        objSheet.autoSizeColumn(i);
+	        
+	        //번호
+	        objCell = objRow.createCell(0);
+	        objCell.setCellValue(i+1);
+	        objSheet.setColumnWidth(0, (short)0x700);
+	        objCell.setCellStyle(styleHd);
+	        
+	        //이름
+	        objCell = objRow.createCell(1);
+	        objCell.setCellValue(attendance_list.get(i).getNickname());
+	        objSheet.setColumnWidth(1, (short)0x1500);
+	        objCell.setCellStyle(styleHd);
+
+	        //연락처
+	        objCell = objRow.createCell(2);
+	        objCell.setCellValue(attendance_list.get(i).getPhone());
+	        objSheet.setColumnWidth(2, (short)0x1500);
+	        objCell.setCellStyle(styleHd);
+	        
+	        //성별
+	        objCell = objRow.createCell(3);
+	        objCell.setCellValue(attendance_list.get(i).getGender());
+	        objSheet.setColumnWidth(3, (short)0x1000);
+	        objCell.setCellStyle(styleHd);
+	        
+	        //키
+	        objCell = objRow.createCell(4);
+	        objCell.setCellValue(attendance_list.get(i).getHeight());
+	        objSheet.setColumnWidth(4, (short)0x1000);
+	        objCell.setCellStyle(styleHd);
+	        
+	        //몸무게
+	        objCell = objRow.createCell(5);
+	        objCell.setCellValue(attendance_list.get(i).getWeight());
+	        objSheet.setColumnWidth(5, (short)0x1000);
+	        objCell.setCellStyle(styleHd);
+	        
+	        //등록일
+	        objCell = objRow.createCell(6);
+	        objCell.setCellValue(attendance_list.get(i).getCreated_at());
+	        objSheet.setColumnWidth(6, (short)0x2000);
+	        objCell.setCellStyle(styleHd);
+	       
+		}
+		
+		String filename = "사용자 리스트";
+		String header = request.getHeader("User-Agent");
+		if(header.contains("Edge") || header.contains("MSIE")) {
+			filename = URLEncoder.encode(filename, "UTF-8").replaceAll("//+", "%20");
+		}
+		else if(header.contains("Chrome") || header.contains("Opera") || header.contains("Firefox")) {
+			filename = new String(filename.getBytes("UTF-8"), "ISO-8859-1");
+		}
+        
+        response.setHeader("Content-Disposition", "ATTachment; Filename=" +filename +".xls");
+
+        OutputStream fileOut  = response.getOutputStream();
+        objWorkBook.write(fileOut);
+        fileOut.close();
+
+        response.getOutputStream().flush();
+        response.getOutputStream().close();
+	}
+	
+
+	//피드 리스트
+	//사용자 리스트
+	@RequestMapping(value = "/feed/feed_list.do")
+	public String feed_list(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
+		String session = (String)request.getSession().getAttribute("id");
+		if(session == null || session == "null") {
+			return "redirect:/pict_login.do";
+		}
+		
+		int limitNumber = 20;
+		pictVO.setLimit(limitNumber);
+		Integer pageNum = pictVO.getPageNumber();
+		if(pageNum == 0) {
+			pictVO.setPageNumber(1);
+			pageNum = 1;
+		}
+
+		
+		int startNum = (pageNum - 1) * limitNumber;
+		pictVO.setStartNumber(startNum);
+		Integer totalCnt = pictService.feed_list_cnt(pictVO);
+		int lastPageValue = (int)(Math.ceil( totalCnt * 1.0 / 20 )); 
+		pictVO.setLastPage(lastPageValue);
+		Integer s_page = pageNum - 4;
+		Integer e_page = pageNum + 5;
+		if (s_page <= 0) {
+			s_page = 1;
+			e_page = 10;
+		} 
+		if (e_page > lastPageValue){
+			e_page = lastPageValue;
+		}
+		pictVO.setStartPage(s_page);
+		pictVO.setEndPage(e_page);
+		
+
+		List<PictVO> reference_list = pictService.feed_list(pictVO);
+
+		model.addAttribute("resultList", reference_list);
+		model.addAttribute("board_cnt", totalCnt);
+		
+		
+		model.addAttribute("pictVO", pictVO);
+		
+		return "pict/feed/feed_list";
+	}
+	@RequestMapping(value = "/feed/feed_del.do", method = RequestMethod.POST)
+	public String feed_del(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
+		String session = (String)request.getSession().getAttribute("id");
+		if(session == null || session == "null") {
+			return "redirect:/pict_login.do";
+		}
+		pictService.feed_del(pictVO);
+		
+		model.addAttribute("message", "정상적으로 삭제되었습니다.");
+		model.addAttribute("retType", ":location");
+		model.addAttribute("retUrl", "/feed/feed_list.do");
+		return "pict/main/message";
+	}
+	
+	//피드댓글
+	@RequestMapping(value = "/feed/feed_reply_list.do")
+	public String feed_reply_list(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
+		String session = (String)request.getSession().getAttribute("id");
+		if(session == null || session == "null") {
+			return "redirect:/pict_login.do";
+		}
+		
+
+		List<PictVO> reference_list = pictService.feed_reply_list(pictVO);
+
+		model.addAttribute("resultList", reference_list);
+		model.addAttribute("board_cnt", reference_list.size());
+		
+		
+		model.addAttribute("pictVO", pictVO);
+		
+		return "pict/feed/feed_reply_list";
+	}
+	@RequestMapping(value = "/feed/feed_reply_del.do", method = RequestMethod.POST)
+	public String feed_reply_del(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
+		String session = (String)request.getSession().getAttribute("id");
+		if(session == null || session == "null") {
+			return "redirect:/pict_login.do";
+		}
+		String feed_id = pictVO.getFeed_id();
+		pictService.feed_reply_del(pictVO);
+		
+		model.addAttribute("message", "정상적으로 삭제되었습니다.");
+		model.addAttribute("retType", ":location");
+		model.addAttribute("retUrl", "/feed/feed_reply_list.do?feed_id=" +feed_id);
+		return "pict/main/message";
+	}
+	
+	
+	//코스이력 리스트
+	@RequestMapping(value = "/history/history_list.do")
+	public String history_list(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
+		String session = (String)request.getSession().getAttribute("id");
+		if(session == null || session == "null") {
+			return "redirect:/pict_login.do";
+		}
+		
+		int limitNumber = 20;
+		pictVO.setLimit(limitNumber);
+		Integer pageNum = pictVO.getPageNumber();
+		if(pageNum == 0) {
+			pictVO.setPageNumber(1);
+			pageNum = 1;
+		}
+
+		
+		int startNum = (pageNum - 1) * limitNumber;
+		pictVO.setStartNumber(startNum);
+		Integer totalCnt = pictService.history_list_cnt(pictVO);
+		int lastPageValue = (int)(Math.ceil( totalCnt * 1.0 / 20 )); 
+		pictVO.setLastPage(lastPageValue);
+		Integer s_page = pageNum - 4;
+		Integer e_page = pageNum + 5;
+		if (s_page <= 0) {
+			s_page = 1;
+			e_page = 10;
+		} 
+		if (e_page > lastPageValue){
+			e_page = lastPageValue;
+		}
+		pictVO.setStartPage(s_page);
+		pictVO.setEndPage(e_page);
+		
+
+		List<PictVO> reference_list = pictService.history_list(pictVO);
+
+		model.addAttribute("resultList", reference_list);
+		model.addAttribute("board_cnt", totalCnt);
+		
+		
+		model.addAttribute("pictVO", pictVO);
+		
+		return "pict/history/history_list";
+	}
+	@RequestMapping(value = "/history/history_del.do", method = RequestMethod.POST)
+	public String history_del(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
+		String session = (String)request.getSession().getAttribute("id");
+		if(session == null || session == "null") {
+			return "redirect:/pict_login.do";
+		}
+		pictService.history_del(pictVO);
+		
+		model.addAttribute("message", "정상적으로 삭제되었습니다.");
+		model.addAttribute("retType", ":location");
+		model.addAttribute("retUrl", "/history/history_list.do");
+		return "pict/main/message";
+	}
+	
+	//행사관리
 	@RequestMapping(value = "/event/event_list.do")
 	public String event_list(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
 		String session = (String)request.getSession().getAttribute("id");
@@ -351,9 +672,42 @@ public class pictController {
 			return "redirect:/pict_login.do";
 		}
 		pictVO.setUser_id(session);
-	
-		List<?> board_list = pictService.event_list(pictVO);
-		model.addAttribute("resultList", board_list);
+
+		int limitNumber = 10;
+		pictVO.setLimit(limitNumber);
+		
+		Integer pageNum = pictVO.getPageNumber();
+		
+		if(pageNum == 0) {
+			pictVO.setPageNumber(1);
+			pageNum = 1;
+		}
+
+		int startNum = (pageNum - 1) * limitNumber;
+		pictVO.setStartNumber(startNum);
+		
+		Integer totalCnt = pictService.event_list_cnt(pictVO);
+		
+		int lastPageValue = (int)(Math.ceil( totalCnt * 1.0 / 10 )); 
+		pictVO.setLastPage(lastPageValue);
+		
+		Integer s_page = pageNum - 4;
+		Integer e_page = pageNum + 5;
+		if (s_page <= 0) {
+			s_page = 1;
+			e_page = 10;
+		} 
+		if (e_page > lastPageValue){
+			e_page = lastPageValue;
+		}
+		
+		pictVO.setStartPage(s_page);
+		pictVO.setEndPage(e_page);
+		
+		List<PictVO> event_list = pictService.event_list(pictVO);
+		model.addAttribute("resultList", event_list);
+		model.addAttribute("totalCnt", totalCnt);
+
 		model.addAttribute("pictVO", pictVO);
 		
 		return "pict/event/event_list";
@@ -389,11 +743,11 @@ public class pictController {
 		}
 		if(attach_file.getSize() != 0) {	//애드벌룬
 			String uploadPath = fileUpload(request, attach_file, (String)request.getSession().getAttribute("id"));
-			String filepath = "/user1/upload_file/mountain/";
+			String filepath = "/user1/upload_file/menbaloo/";
 			String filename = uploadPath.split("#####")[1];
-			pictVO.setImg_url(filepath+filename);
+			pictVO.setImage(filepath+filename);
 		}
-		
+		//pictVO.setType(pictVO.getType().replaceAll(",", ""));
 		if(pictVO.getSaveType() != null && pictVO.getSaveType().equals("update")) {
 			pictService.event_update(pictVO);
 			model.addAttribute("message", "정상적으로 수정되었습니다.");
@@ -402,7 +756,6 @@ public class pictController {
 			return "pict/main/message";
 		}
 		else {
-			System.out.println("여기를 타야되는데");
 			pictService.event_insert(pictVO);
 			model.addAttribute("message", "정상적으로 저장되었습니다.");
 			model.addAttribute("retType", ":location");
@@ -426,23 +779,56 @@ public class pictController {
 		
 	}	
 	
-	//팝업
-	@RequestMapping(value = "/popup/popup_list.do")
-	public String popup_list(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
+	//코스관리
+	@RequestMapping(value = "/course/course_list.do")
+	public String course_list(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
 		String session = (String)request.getSession().getAttribute("id");
 		if(session == null || session == "null") {
 			return "redirect:/pict_login.do";
 		}
 		pictVO.setUser_id(session);
-	
-		List<?> board_list = pictService.popup_list(pictVO);
-		model.addAttribute("resultList", board_list);
+
+		int limitNumber = 10;
+		pictVO.setLimit(limitNumber);
+		
+		Integer pageNum = pictVO.getPageNumber();
+		
+		if(pageNum == 0) {
+			pictVO.setPageNumber(1);
+			pageNum = 1;
+		}
+
+		int startNum = (pageNum - 1) * limitNumber;
+		pictVO.setStartNumber(startNum);
+		
+		Integer totalCnt = pictService.course_list_cnt(pictVO);
+		
+		int lastPageValue = (int)(Math.ceil( totalCnt * 1.0 / 10 )); 
+		pictVO.setLastPage(lastPageValue);
+		
+		Integer s_page = pageNum - 4;
+		Integer e_page = pageNum + 5;
+		if (s_page <= 0) {
+			s_page = 1;
+			e_page = 10;
+		} 
+		if (e_page > lastPageValue){
+			e_page = lastPageValue;
+		}
+		
+		pictVO.setStartPage(s_page);
+		pictVO.setEndPage(e_page);
+		
+		List<PictVO> course_list = pictService.course_list(pictVO);
+		model.addAttribute("resultList", course_list);
+		model.addAttribute("totalCnt", totalCnt);
+
 		model.addAttribute("pictVO", pictVO);
 		
-		return "pict/popup/popup_list";
+		return "pict/course/course_list";
 	}
-	@RequestMapping(value = "/popup/popup_register.do")
-	public String popup_register(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
+	@RequestMapping(value = "/course/course_register.do")
+	public String course_register(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
 		String session = (String)request.getSession().getAttribute("id");
 		if(session == null || session == "null") {
 			return "redirect:/pict_login.do";
@@ -452,19 +838,19 @@ public class pictController {
 		
 		if(pictVO.getIdx() != 0) {
 			//수정
-			pictVO = pictService.popup_list_one(pictVO);
+			pictVO = pictService.course_list_one(pictVO);
 			pictVO.setSaveType("update");
-			
 		}
 		else {
 			pictVO.setSaveType("insert");
+			//인설트
 		}
 		model.addAttribute("pictVO", pictVO);
 			
-		return "pict/popup/popup_register";
+		return "pict/course/course_register";
 	}
-	@RequestMapping(value = "/popup/popup_save.do", method = RequestMethod.POST)
-	public String popup_save(@ModelAttribute("pictVO") PictVO pictVO, ModelMap model, MultipartHttpServletRequest request,
+	@RequestMapping(value = "/course/course_save.do", method = RequestMethod.POST)
+	public String course_save(@ModelAttribute("pictVO") PictVO pictVO, ModelMap model, MultipartHttpServletRequest request,
 			@RequestParam("attach_file") MultipartFile attach_file) throws Exception {
 		String session = (String)request.getSession().getAttribute("id");
 		if(session == null || session == "null") {
@@ -472,57 +858,43 @@ public class pictController {
 		}
 		if(attach_file.getSize() != 0) {	//애드벌룬
 			String uploadPath = fileUpload(request, attach_file, (String)request.getSession().getAttribute("id"));
-			String filepath = "/user1/upload_file/mountain/";
+			String filepath = "/user1/upload_file/menbaloo/";
 			String filename = uploadPath.split("#####")[1];
-			pictVO.setImg_url(filepath+filename);
+			pictVO.setImage(filepath+filename);
 		}
-		
+		//pictVO.setType(pictVO.getType().replaceAll(",", ""));
 		if(pictVO.getSaveType() != null && pictVO.getSaveType().equals("update")) {
-			pictService.popup_update(pictVO);
+			pictService.course_update(pictVO);
 			model.addAttribute("message", "정상적으로 수정되었습니다.");
 			model.addAttribute("retType", ":location");
-			model.addAttribute("retUrl", "/popup/popup_list.do");
+			model.addAttribute("retUrl", "/course/course_list.do");
 			return "pict/main/message";
 		}
 		else {
-			System.out.println("여기를 타야되는데");
-			pictService.popup_insert(pictVO);
+			pictService.course_insert(pictVO);
 			model.addAttribute("message", "정상적으로 저장되었습니다.");
 			model.addAttribute("retType", ":location");
-			model.addAttribute("retUrl", "/popup/popup_list.do");
+			model.addAttribute("retUrl", "/course/course_list.do");
 			return "pict/main/message";	
 		}
 		
 	}	
-	@RequestMapping(value = "/popup/popup_delete.do", method = RequestMethod.POST)
-	public String popup_delete(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
+	@RequestMapping(value = "/course/course_delete.do", method = RequestMethod.POST)
+	public String course_delete(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
 		String session = (String)request.getSession().getAttribute("id");
 		if(session == null || session == "null") {
 			return "redirect:/pict_login.do";
 		}
-		pictService.popup_delete(pictVO);
+		pictService.course_delete(pictVO);
 		
 		model.addAttribute("message", "정상적으로 삭제되었습니다.");
 		model.addAttribute("retType", ":location");
-		model.addAttribute("retUrl", "/popup/popup_list.do");
+		model.addAttribute("retUrl", "/course/course_list.do");
 		return "pict/main/message";
 		
 	}	
 	
-	//산 통계
-	@RequestMapping(value = "/status/status_list.do")
-	public String status_list(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
-		String session = (String)request.getSession().getAttribute("id");
-		if(session == null || session == "null") {
-			return "redirect:/pict_login.do";
-		}
 	
-		List<?> reference_list = pictService.status_list(pictVO);
-		model.addAttribute("resultList", reference_list);
-		model.addAttribute("pictVO", pictVO);
-		
-		return "pict/status/status_list";
-	}
 	
     //메소드
 	public static String encryptPassword(String password, String id) throws Exception {
@@ -568,7 +940,7 @@ public class pictController {
     	return path + "#####" + fileName;
     }
     private String getSaveLocation(MultipartHttpServletRequest request, MultipartFile uploadFile) {
-    	String uploadPath = "/user1/upload_file/mountain/";
+    	String uploadPath = "/user1/upload_file/menbaloo/";
     	return uploadPath;
     }
     private static String getTagValue(String tag, Element eElement) {

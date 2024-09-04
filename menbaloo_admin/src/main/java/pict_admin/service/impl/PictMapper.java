@@ -41,136 +41,31 @@ import pict_admin.service.PictVO;
 @Mapper("pictMapper")
 public interface PictMapper {
 	
-	List<?> reference_list(PictVO pictVO) throws Exception;
+	Integer menbal_list_cnt(PictVO pictVO) throws Exception;
 
-	PictVO reference_list_one(PictVO pictVO) throws Exception;
+	List<PictVO> menbal_list(PictVO pictVO) throws Exception;
 
-	void reference_update(PictVO pictVO) throws Exception;
+	void menbal_del(PictVO pictVO)throws Exception;
 
-	void reference_insert(PictVO pictVO) throws Exception;
+	Integer feed_list_cnt(PictVO pictVO)throws Exception;
 
-	void reference_delete(PictVO pictVO) throws Exception;
+	List<PictVO> feed_list(PictVO pictVO) throws Exception;
 
-	void reference_file_delete(PictVO pictVO) throws Exception;
+	void feed_del(PictVO pictVO) throws Exception;
 
-	List<?> news_list(PictVO pictVO) throws Exception;
+	void feed_reply_del(PictVO pictVO) throws Exception;
 
-	PictVO news_list_one(PictVO pictVO) throws Exception;
+	List<PictVO> feed_reply_list(PictVO pictVO) throws Exception;
 
-	void news_update(PictVO pictVO) throws Exception;
+	Integer history_list_cnt(PictVO pictVO) throws Exception;
 
-	void news_insert(PictVO pictVO) throws Exception;
+	List<PictVO> history_list(PictVO pictVO) throws Exception;
 
-	void news_delete(PictVO pictVO) throws Exception;
+	void history_del(PictVO pictVO) throws Exception;
 
-	List<?> history_list(PictVO pictVO) throws Exception;
+	Integer event_list_cnt(PictVO pictVO) throws Exception;
 
-	PictVO history_list_one(PictVO pictVO) throws Exception;
-
-	void history_update(PictVO pictVO) throws Exception;
-
-	void history_insert(PictVO pictVO) throws Exception;
-
-	void history_delete(PictVO pictVO) throws Exception;
-
-	List<?> user_list(PictVO pictVO) throws Exception;
-
-	PictVO user_list_one(PictVO pictVO) throws Exception;
-
-	void user_update(PictVO pictVO) throws Exception;
-
-	void user_insert(PictVO pictVO) throws Exception;
-
-	void user_delete(PictVO pictVO) throws Exception;
-
-	void user_file_delete(PictVO pictVO) throws Exception;
-
-	void history_file_delete(PictVO pictVO) throws Exception;
-
-	//컨텐츠관리 - 띠배너
-	List<?> board_list(PictVO pictVO) throws Exception;
-
-	PictVO board_list_one(PictVO pictVO) throws Exception;
-
-	void board_update(PictVO pictVO) throws Exception;
-
-	void board_insert(PictVO pictVO) throws Exception;
-
-	void board_delete(PictVO pictVO) throws Exception;
-
-	void board_cng(PictVO pictVO) throws Exception;
-
-	PictVO video_list_one(PictVO pictVO) throws Exception;
-
-	void video_update(PictVO pictVO) throws Exception;
-
-	List<?> patrol_list(PictVO pictVO) throws Exception;
-
-	PictVO user_duple(PictVO pictVO) throws Exception;
-
-	List<?> superstar_list(PictVO pictVO) throws Exception;
-
-	List<?> superstar_vote(PictVO pictVO) throws Exception;
-
-	void superstar_cng_yton(PictVO pictVO) throws Exception;
-
-	void superstar_cng_ntoy(PictVO pictVO) throws Exception;
-
-	void superstar_delete(PictVO pictVO) throws Exception;
-
-	PictVO superstar_list_one(PictVO pictVO) throws Exception;
-
-	List<?> finish_list(PictVO pictVO) throws Exception;
-
-	void finish_cng_yton(PictVO pictVO) throws Exception;
-
-	void finish_cng_ntoy(PictVO pictVO) throws Exception;
-
-	void user_reset(PictVO pictVO) throws Exception;
-
-	List<?> bwf_list(PictVO pictVO) throws Exception;
-
-	List<?> wesp_list(PictVO pictVO) throws Exception;
-
-	List<?> best_list(PictVO pictVO) throws Exception;
-
-	PictVO brand_list_one(PictVO pictVO) throws Exception;
-
-	void brand_update(PictVO pictVO) throws Exception;
-
-	List<PictVO> get_user_list(PictVO pictVO) throws Exception;
-
-	List<PictVO> ox_list(PictVO pictVO) throws Exception;
-
-	PictVO ox_list_one(PictVO pictVO) throws Exception;
-
-	void ox_update(PictVO pictVO) throws Exception;
-
-	void ox_insert(PictVO pictVO) throws Exception;
-
-	void ox_delete(PictVO pictVO) throws Exception;
-
-	void ox_cng(PictVO pictVO) throws Exception;
-
-	List<PictVO> ox_userlist(PictVO pictVO) throws Exception;
-
-	List<?> wish_list(PictVO pictVO) throws Exception;
-
-	void wish_reply_update(PictVO pictVO) throws Exception;
-
-	void wish_reply_insert(PictVO pictVO) throws Exception;
-
-	void wish_delete(PictVO pictVO) throws Exception;
-
-	PictVO wish_list_one(PictVO pictVO) throws Exception;
-
-	List<?> photo_list(PictVO pictVO) throws Exception;
-
-	void photo_delete(PictVO pictVO) throws Exception;
-
-	List<PictVO> status_list(PictVO pictVO) throws Exception;
-
-	List<?> event_list(PictVO pictVO) throws Exception;
+	List<PictVO> event_list(PictVO pictVO) throws Exception;
 
 	PictVO event_list_one(PictVO pictVO) throws Exception;
 
@@ -180,24 +75,15 @@ public interface PictMapper {
 
 	void event_delete(PictVO pictVO) throws Exception;
 
-	List<?> popup_list(PictVO pictVO) throws Exception;
+	Integer course_list_cnt(PictVO pictVO) throws Exception; 
 
-	PictVO popup_list_one(PictVO pictVO) throws Exception;
+	List<PictVO> course_list(PictVO pictVO) throws Exception;
 
-	void popup_update(PictVO pictVO) throws Exception;
+	PictVO course_list_one(PictVO pictVO) throws Exception;
 
-	void popup_insert(PictVO pictVO) throws Exception;
+	void course_update(PictVO pictVO) throws Exception;
 
-	void popup_delete(PictVO pictVO) throws Exception;
+	void course_insert(PictVO pictVO) throws Exception;
 
-	List<?> mountain_list(PictVO pictVO) throws Exception;
-
-	PictVO mountain_detail(PictVO pictVO) throws Exception;
-
-	PictVO board_detail(PictVO pictVO) throws Exception;
-
-	PictVO event_detail(PictVO pictVO) throws Exception;
-
-	void mountain_count_insert(PictVO pictVO) throws Exception;
-
+	void course_delete(PictVO pictVO) throws Exception;
 }

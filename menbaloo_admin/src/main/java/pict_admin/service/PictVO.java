@@ -192,7 +192,209 @@ public class PictVO extends PictDefaultVO {
 	private String higher;
 	private String lower;
 	
+	private int pageNumber;
+	private int startNumber;
+	private int limit;
+	private int totalPage;
+	private int offset;
+	private int lastPage;
+	private int startPage;
+	private int endPage;
 	
+	private String nickname;
+	
+	private String weight;
+	private String gender;
+	private String phone;
+	private String created_at;
+	private String feed_id;
+	private String image_url;
+	private String like_cnt;
+	private String report_yn;
+	private String comment;
+	
+	private String walking_id;
+	private String steps;
+	private String distance;
+	private String average_speed;
+	private String calories;
+	private String duration;
+	private String start;
+	private String end;
+	private String image;
+	
+	private String event_date;
+	
+	
+	
+	public String getEvent_date() {
+		return event_date;
+	}
+	public void setEvent_date(String event_date) {
+		this.event_date = event_date;
+	}
+	public String getWalking_id() {
+		return walking_id;
+	}
+	public void setWalking_id(String walking_id) {
+		this.walking_id = walking_id;
+	}
+	public String getSteps() {
+		return steps;
+	}
+	public void setSteps(String steps) {
+		this.steps = steps;
+	}
+	public String getDistance() {
+		return distance;
+	}
+	public void setDistance(String distance) {
+		this.distance = distance;
+	}
+	public String getAverage_speed() {
+		return average_speed;
+	}
+	public void setAverage_speed(String average_speed) {
+		this.average_speed = average_speed;
+	}
+	public String getCalories() {
+		return calories;
+	}
+	public void setCalories(String calories) {
+		this.calories = calories;
+	}
+	public String getDuration() {
+		return duration;
+	}
+	public void setDuration(String duration) {
+		this.duration = duration;
+	}
+	public String getStart() {
+		return start;
+	}
+	public void setStart(String start) {
+		this.start = start;
+	}
+	public String getEnd() {
+		return end;
+	}
+	public void setEnd(String end) {
+		this.end = end;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	public String getFeed_id() {
+		return feed_id;
+	}
+	public void setFeed_id(String feed_id) {
+		this.feed_id = feed_id;
+	}
+	public String getImage_url() {
+		return image_url;
+	}
+	public void setImage_url(String image_url) {
+		this.image_url = image_url;
+	}
+	public String getLike_cnt() {
+		return like_cnt;
+	}
+	public void setLike_cnt(String like_cnt) {
+		this.like_cnt = like_cnt;
+	}
+	public String getReport_yn() {
+		return report_yn;
+	}
+	public void setReport_yn(String report_yn) {
+		this.report_yn = report_yn;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getWeight() {
+		return weight;
+	}
+	public void setWeight(String weight) {
+		this.weight = weight;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getCreated_at() {
+		return created_at;
+	}
+	public void setCreated_at(String created_at) {
+		this.created_at = created_at;
+	}
+	public int getPageNumber() {
+		return pageNumber;
+	}
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
+	}
+	public int getStartNumber() {
+		return startNumber;
+	}
+	public void setStartNumber(int startNumber) {
+		this.startNumber = startNumber;
+	}
+	public int getLimit() {
+		return limit;
+	}
+	public void setLimit(int limit) {
+		this.limit = limit;
+	}
+	public int getTotalPage() {
+		return totalPage;
+	}
+	public void setTotalPage(int totalPage) {
+		this.totalPage = totalPage;
+	}
+	public int getOffset() {
+		return offset;
+	}
+	public void setOffset(int offset) {
+		this.offset = offset;
+	}
+	public int getLastPage() {
+		return lastPage;
+	}
+	public void setLastPage(int lastPage) {
+		this.lastPage = lastPage;
+	}
+	public int getStartPage() {
+		return startPage;
+	}
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
+	public int getEndPage() {
+		return endPage;
+	}
+	public void setEndPage(int endPage) {
+		this.endPage = endPage;
+	}
 	public String getHigher() {
 		return higher;
 	}

@@ -35,71 +35,33 @@ import java.util.List;
  *  Copyright (C) by MOPAS All right reserved.
  */
 public interface PictService {
-	List<?> reference_list(PictVO pictVO) throws Exception;
 
-	PictVO reference_list_one(PictVO pictVO) throws Exception;
+	Integer menbal_list_cnt(PictVO pictVO) throws Exception;
 
-	void reference_update(PictVO pictVO) throws Exception;
+	List<PictVO> menbal_list(PictVO pictVO) throws Exception;
 
-	void reference_insert(PictVO pictVO) throws Exception;
+	void menbal_del(PictVO pictVO) throws Exception;
 
-	void reference_delete(PictVO pictVO) throws Exception;
+	Integer feed_list_cnt(PictVO pictVO) throws Exception;
 
-	void reference_file_delete(PictVO pictVO) throws Exception;
+	List<PictVO> feed_list(PictVO pictVO) throws Exception;
 
-	List<?> news_list(PictVO pictVO) throws Exception;
-
-	PictVO news_list_one(PictVO pictVO) throws Exception;
-
-	void news_update(PictVO pictVO) throws Exception;
-
-	void news_insert(PictVO pictVO) throws Exception; 
-
-	void news_delete(PictVO pictVO) throws Exception;
-
-	List<?> history_list(PictVO pictVO) throws Exception;
-
-	PictVO history_list_one(PictVO pictVO) throws Exception;
-
-	void history_update(PictVO pictVO) throws Exception;
-
-	void history_insert(PictVO pictVO) throws Exception;
-
-	void history_delete(PictVO pictVO) throws Exception;
-
-	List<?> user_list(PictVO pictVO) throws Exception;
-
-	PictVO user_list_one(PictVO pictVO) throws Exception;
-
-	void user_update(PictVO pictVO) throws Exception;
-
-	void user_insert(PictVO pictVO) throws Exception;
-
-	void user_delete(PictVO pictVO) throws Exception;
-
-	void user_file_delete(PictVO pictVO) throws Exception;
-
-	void history_file_delete(PictVO pictVO) throws Exception;
-
-	//컨텐츠관리 - 띠배너
-	List<?> board_list(PictVO pictVO) throws Exception;
-
-	PictVO board_list_one(PictVO pictVO) throws Exception;
-
-	void board_update(PictVO pictVO) throws Exception;
-
-	void board_insert(PictVO pictVO) throws Exception;
-
-	void board_delete(PictVO pictVO) throws Exception;
+	void feed_del(PictVO pictVO) throws Exception;
 
 
-	List<?> photo_list(PictVO pictVO) throws Exception;
+	void feed_reply_del(PictVO pictVO) throws Exception;
 
-	void photo_delete(PictVO pictVO) throws Exception;
+	List<PictVO> feed_reply_list(PictVO pictVO) throws Exception;
 
-	List<PictVO> status_list(PictVO pictVO) throws Exception;
+	Integer history_list_cnt(PictVO pictVO) throws Exception;
 
-	List<?> event_list(PictVO pictVO) throws Exception;
+	List<PictVO> history_list(PictVO pictVO) throws Exception;
+
+	void history_del(PictVO pictVO) throws Exception;
+
+	Integer event_list_cnt(PictVO pictVO) throws Exception;
+
+	List<PictVO> event_list(PictVO pictVO) throws Exception;
 
 	PictVO event_list_one(PictVO pictVO) throws Exception;
 
@@ -107,27 +69,18 @@ public interface PictService {
 
 	void event_insert(PictVO pictVO) throws Exception;
 
-	void event_delete(PictVO pictVO) throws Exception;
-	
-	List<?> popup_list(PictVO pictVO) throws Exception;
+	void event_delete(PictVO pictVO)throws Exception;
 
-	PictVO popup_list_one(PictVO pictVO) throws Exception;
+	Integer course_list_cnt(PictVO pictVO) throws Exception;
 
-	void popup_update(PictVO pictVO) throws Exception;
+	List<PictVO> course_list(PictVO pictVO) throws Exception;
 
-	void popup_insert(PictVO pictVO) throws Exception;
+	PictVO course_list_one(PictVO pictVO) throws Exception;
 
-	void popup_delete(PictVO pictVO) throws Exception;
+	void course_update(PictVO pictVO) throws Exception;
 
-	List<?> mountain_list(PictVO pictVO) throws Exception;
+	void course_insert(PictVO pictVO) throws Exception;
 
-	PictVO mountain_detail(PictVO pictVO) throws Exception;
-
-	PictVO board_detail(PictVO pictVO) throws Exception;
-
-	PictVO event_detail(PictVO pictVO) throws Exception;
-
-	void mountain_count_insert(PictVO pictVO) throws Exception;
-
+	void course_delete(PictVO pictVO) throws Exception;
 
 }
