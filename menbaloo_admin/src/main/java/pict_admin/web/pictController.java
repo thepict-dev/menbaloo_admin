@@ -187,8 +187,9 @@ public class pictController {
 			return "pict/main/message";
 		}
 	}
+	//사용자 리스트
 	@RequestMapping(value = "/user/user_list.do")
-	public String user_list(@ModelAttribute("adminVO") AdminVO adminVO, ModelMap model, HttpServletRequest request) throws Exception {
+	public String user_list_f(@ModelAttribute("adminVO") AdminVO adminVO, ModelMap model, HttpServletRequest request) throws Exception {
 		String session = (String)request.getSession().getAttribute("id");
 		if(session == null || session == "null") {
 			return "redirect:/pict_login.do";
@@ -200,6 +201,42 @@ public class pictController {
 		List<?> userList = adminService.user_list(adminVO);
 		model.addAttribute("resultList", userList);
 		return "pict/user/user_list";
+	}
+	@RequestMapping(value = "/user/user_register.do")
+	public String user_register_f(@ModelAttribute("adminVO") AdminVO adminVO, ModelMap model, HttpServletRequest request) throws Exception {
+		String session = (String)request.getSession().getAttribute("id");
+		if(session == null || session == "null") {
+			return "redirect:/pict_login.do";
+		}
+		
+		if(adminVO.getId() != null && !adminVO.equals("")) {
+			//수정
+			adminVO = adminService.user_select_one(adminVO);
+			adminVO.setSaveType("update");
+			
+		}
+		else {
+			adminVO.setSaveType("insert");
+		}
+		
+		model.addAttribute("adminVO", adminVO);
+		return "pict/user/user_register";
+	}
+	
+	
+	@RequestMapping(value = "/user_list.do")
+	public String user_list(@ModelAttribute("adminVO") AdminVO adminVO, ModelMap model, HttpServletRequest request) throws Exception {
+		String session = (String)request.getSession().getAttribute("id");
+		if(session == null || session == "null") {
+			return "redirect:/pict_login.do";
+		}
+		
+		model.addAttribute("search_text",adminVO.getSearch_text());
+		
+		
+		List<?> userList = adminService.user_list(adminVO);
+		model.addAttribute("resultList", userList);
+		return "pict/main/user_list";
 	}
 	@RequestMapping(value = "/user_register.do")
 	public String user_register(@ModelAttribute("adminVO") AdminVO adminVO, ModelMap model, HttpServletRequest request) throws Exception {
