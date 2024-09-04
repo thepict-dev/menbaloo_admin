@@ -3,27 +3,39 @@
 <%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="ui"     uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    
 
-	
-    <title>${param.pageTitle}</title>
-    <link href="../../../../../css/egovframework/pict/reset.css" rel="stylesheet" />
-    <link href="../../../../../css/egovframework/pict/styles.css" rel="stylesheet" />
-    <link href="../../../../../css/egovframework/pict/contents.css" rel="stylesheet" />
-    <script src="../../../../../js/all.min.js" crossorigin="anonymous"></script>
-    <link rel="shortcut icon" type="image/x-icon" href="/images/pict/favicon.webp">
-    <script src="https://kit.fontawesome.com/13fbf8e9ff.js" crossorigin="anonymous"></script>
-    <script src="../../../../../js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-	<script src="../../../../../js/scripts.js"></script>
-	<script src="../../../../../js/Chart.min.js" crossorigin="anonymous"></script>
-	<script src="../../../../../js/simple-datatables@latest.js" crossorigin="anonymous"></script>
-</head>     
+<div class="header">
+    <div class="headerTop">
+        <h1><a href="/"><span>경</span></a></h1>
+        <div class="headerInner">
+            <p class="proTitle">프로젝트 대표 이름 예를들어 지역혁신플랫폼</p>
+            <div class="profileWrap">
+                <div class="profile">
+                    <div class="profileTexts">
+                        <p>한지현</p>
+                        <span>클라이언트명<span>•</span>관리자</span>
+                    </div>
+                </div>
+                <div class="topBtns">
+                    <a href=""><img src="/img/admin/logout.png" alt="">로그아웃</a>
+                    <a href="">홈페이지 바로가기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="breadCrumb">
+        <ul class="crumb">
+            <li>사용자</li>
+            <li>사용자 리스트</li>
+        </ul>
+    </div>
+</div>
+
+
+<script>
+	function fn_logout() {
+		if(confirm("로그아웃 하시겠습니까?")){
+			location.href="/logout.do"
+		}
+	}
+</script>

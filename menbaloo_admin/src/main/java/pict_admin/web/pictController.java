@@ -187,7 +187,7 @@ public class pictController {
 			return "pict/main/message";
 		}
 	}
-	@RequestMapping(value = "/user_list.do")
+	@RequestMapping(value = "/user/user_list.do")
 	public String user_list(@ModelAttribute("adminVO") AdminVO adminVO, ModelMap model, HttpServletRequest request) throws Exception {
 		String session = (String)request.getSession().getAttribute("id");
 		if(session == null || session == "null") {
@@ -199,7 +199,7 @@ public class pictController {
 		
 		List<?> userList = adminService.user_list(adminVO);
 		model.addAttribute("resultList", userList);
-		return "pict/main/user_list";
+		return "pict/user/user_list";
 	}
 	@RequestMapping(value = "/user_register.do")
 	public String user_register(@ModelAttribute("adminVO") AdminVO adminVO, ModelMap model, HttpServletRequest request) throws Exception {
