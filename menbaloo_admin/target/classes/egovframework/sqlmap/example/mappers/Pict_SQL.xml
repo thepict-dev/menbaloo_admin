@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pict_admin.service.impl.PictMapper">
+	<!-- 공지사항 -->
+	<select id="board_list" resultType="pictVO">
+		select *
+		from board_table
+		<if test="search_text != null and search_text != '' ">
+			where (
+				title LIKE CONCAT('%', #{search_text}, '%')
+			) 
+		</if>
+	</select>
+	
+	<select id="board_list_one" resultType="pictVO">
+		select * from board_table
+		where idx = #{idx}
+	</select>
+	
+	<insert id="board_insert" parameterType="pictVO">
+		INSERT INTO board_table
+			(
+			 title,  text, reg_date, img_1,img_2, img_3, img_4, img_5
+			)
+		VALUES (
+			 #{title}, #{text}, now(), #{img_1}, #{img_2}, #{img_3}, #{img_4}, #{img_5}
+			  ) 
+	</insert>
+	
+	<update id="board_update" parameterType="pictVO">
+		update board_table
+		set title =#{title}, text = #{text}, reg_date = now()
+		<if test="img_1 != null and img_1 != '' ">
+			, img_1 = #{img_1}
+		</if>
+		<if test="img_2 != null and img_2 != '' ">
+			, img_2 = #{img_2}
+		</if>
+		<if test="img_3 != null and img_3 != '' ">
+			, img_3 = #{img_3}
+		</if>
+		<if test="img_4 != null and img_4 != '' ">
+			, img_4 = #{img_4}
+		</if>
+		<if test="img_5 != null and img_5 != '' ">
+			, img_5 = #{img_5}
+		</if>
+		where idx = #{idx}
+	</update>
+	
+	<delete id="board_delete" parameterType="pictVO">
+		delete from board_table where idx = #{idx}
+	</delete>
+
+	
+	<!-- 이벤트 -->
+	<select id="event_list" resultType="pictVO">
+		select *
+		from event_table
+		<if test="search_text != null and search_text != '' ">
+			where (
+				title LIKE CONCAT('%', #{search_text}, '%')
+			) 
+		</if>
+	</select>
+	
+	<select id="event_list_one" resultType="pictVO">
+		select * from event_table
+		where idx = #{idx}
+	</select>
+	
+	<insert id="event_insert" parameterType="pictVO">
+		INSERT INTO event_table
+			(
+			 title, from_date, to_date, target_date, gift, img_url, text, reg_date
+			)
+		VALUES (
+			 #{title}, #{from_date}, #{to_date}, #{target_date}, #{gift}, #{img_url}, #{text}, now()
+			  ) 
+	</insert>
+	
+	<update id="event_update" parameterType="pictVO">
+		update event_table
+		set title =#{title}, text = #{text}, reg_date = now(), from_date =#{from_date}, to_date =#{to_date}, target_date = #{target_date}, gift = #{gift}
+		<if test="img_url != null and img_url != '' ">
+			, img_url = #{img_url}
+		</if>
+		where idx = #{idx}
+	</update>
+	
+	<delete id="event_delete" parameterType="pictVO">
+		delete from event_table where idx = #{idx}
+	</delete>
+	
+	<!-- 팝업슬라이드 -->
+	<select id="popup_list" resultType="pictVO">
+		select *
+		from popup_table
+		<if test="search_text != null and search_text != '' ">
+			where (
+				title LIKE CONCAT('%', #{search_text}, '%')
+			) 
+		</if>
+	</select>
+	
+	<select id="popup_list_one" resultType="pictVO">
+		select * from popup_table
+		where idx = #{idx}
+	</select>
+	
+	<insert id="popup_insert" parameterType="pictVO">
+		INSERT INTO popup_table
+			(
+			 title, img_url, link_url, reg_date
+			)
+		VALUES (
+			 #{title}, #{img_url}, #{link_url}, now()
+			  ) 
+	</insert>
+	
+	<update id="popup_update" parameterType="pictVO">
+		update popup_table
+		set title =#{title}, reg_date = now(), link_url =#{link_url}
+		<if test="img_url != null and img_url != '' ">
+			, img_url = #{img_url}
+		</if>
+		where idx = #{idx}
+	</update>
+	
+	<delete id="popup_delete" parameterType="pictVO">
+		delete from popup_table where idx = #{idx}
+	</delete>
+	
+	
+	<!-- 산  -->
+	<select id="mountain_list" resultType="pictVO">
+		select *
+		from mountain_table
+		where 1=1
+		<if test="higher != null and higher != ''">
+			and height <![CDATA[>=]]> 1000
+		</if>
+		<if test="lower != null and lower != ''">
+			and height <![CDATA[<]]> 1000
+		</if>
+		<if test="idx != null and idx != '' and idx != 0">
+			and idx != #{idx}
+			order by rand() limit 3 offset 0
+		</if>
+	</select>
+	
+	<select id="mountain_detail" resultType="pictVO">
+		select *
+		from mountain_table
+		where idx =#{idx}
+	</select>
+	
+	
+	<!-- 사용자 -->
+	<select id="event_detail" resultType="pictVO">
+		select *
+		from event_table
+		where idx =#{idx}
+	</select>
+	
+	<select id="board_detail" resultType="pictVO">
+		select *
+		from board_table
+		where idx =#{idx}
+	</select>
+	
+	<insert id="mountain_count_insert" parameterType="pictVO">
+		INSERT INTO mountain_count
+			(
+			 mountain_id, reg_date
+			)
+		VALUES (
+			 #{idx}, now()
+			  ) 
+	</insert>
+	
+	<!-- 산 통계 -->
+	<select id="status_list" resultType="pictVO">
+		select any_value(mt.title) title, count(mc.idx) as cnt
+		from mountain_table mt 
+		left outer join mountain_count mc on mc.mountain_id = mt.idx
+		group by mt.idx
+	</select>
+</mapper>

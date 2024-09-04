@@ -1,0 +1,52 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
+@font-face {
+    font-family: 'GmarketSansLight';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GmarketSansBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    /* font-family: 'Noto Sans KR', sans-serif; */
+    overflow: auto;
+}
+
+:root {
+	--fn-sans: 'Noto Sans KR', sans-serif;
+	--fn-gmk-lt: 'GmarketSansLight';
+    --fn-gmk-md: 'GmarketSansMedium';
+    --fn-gmk-bd: 'GmarketSansBold';
+    --color-gray: #abafb3;
+    --color-blue: #0152bd;
+    --btn-color-blue: #1f51a2;
+    --bd-color: rgba(0, 0, 0, 0.1);
+}
+
+.blind {
+    width: 0;
+    height: 0;
+    text-indent: -9999px;
+    padding: 0;
+    margin: 0;
+    visibility: hidden;
+}

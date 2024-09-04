@@ -1,0 +1,91 @@
+footer{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 62px 0 73px 0;
+    background-color: #003c83;
+}
+.fInner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.fLogo{
+	display: block;
+	width: 250px;
+	
+}
+.fLogo img{
+	width : 100%;
+}
+.famSite{
+    display: flex;
+    align-items: center;
+    margin-top: 15.6px;
+}
+.famSite a:first-child{
+    margin-right: 53px;
+}
+.famSite a{
+	display: block;
+	width : 200px;
+}
+.famSite a img{
+	width : 100%;
+}
+.fInfo{
+    display: flex;
+    justify-content: center;
+    row-gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 48.7px;
+    font-size: 20px;
+    font-family: var(--fn-sans);
+    letter-spacing: -0.4px;
+    color: #fff;
+}
+.fInfo li:nth-of-type(-n + 3){
+    margin-right: 50px;
+}
+.fInfo li span{
+    padding-right: 10px;
+}
+
+@media all and (max-width : 1024px){
+    .fInner{
+        padding: 0 30px;
+    }
+    .fLogo > img{
+    	width: 100%;
+    }
+    .famSite > a:first-child{
+    	max-width: 150px;
+    }
+    .famSite > a:last-child{
+    	max-width: 153.3px;
+    }
+    .famSite > a > img{
+    	width: 100%;
+    }
+    .fInfo{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 48.7px;
+        font-size: 14px;
+        letter-spacing: -0.28px;
+        text-align: center;
+    }
+    .fInfo li{
+        justify-content: center;
+        /* width: 50%; */
+        padding:  0 20px 8px 0;
+    }
+    .fInfo li:nth-of-type(-n + 3){
+        margin-right: 0;
+    }
+    .fInfo li span{
+        padding-right: 5px;
+    }
+}
