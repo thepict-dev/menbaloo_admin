@@ -50,13 +50,13 @@
     transform: translateY(-50%);
     width: 20px;
     height: 20px;
-    background-image: url(/front_img/drop-down.png);
+    background-image: url(/img/admin/drop-down.png);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: 100%;
   }
   .nice-select.open:after {
-    background-image: url(/front_img/drop-up.png);
+    background-image: url(/img/admin/drop-up.png);
 
   }
   .nice-select.open .list {
@@ -154,7 +154,7 @@
       height: 20px;
       min-width: 20px;  
       margin-right: 8px;
-      background-image: url(/front_img/check.png);
+      background-image: url(/img/admin/check.png);
       background-position: center center;
       background-repeat: no-repeat;
       background-size: 100%;
