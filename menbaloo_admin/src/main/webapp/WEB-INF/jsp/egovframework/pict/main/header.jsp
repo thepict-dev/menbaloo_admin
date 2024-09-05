@@ -11,7 +11,7 @@
 	%>
 <div class="header">
     <div class="headerTop">
-        <h1><a href="/"><span>경</span></a></h1>
+        <h1><a href="/"></a></h1>
         <div class="headerInner">
             <p class="proTitle">맨발루 관리자 페이지</p>
             <div class="profileWrap">

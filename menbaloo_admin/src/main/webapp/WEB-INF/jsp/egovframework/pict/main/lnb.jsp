@@ -31,7 +31,7 @@
             </ul>
             
             <div class="depth1 <c:if test="${feed_list ne -1}">active</c:if>">
-                <span><img src="/img/admin/lnb_icons/user.png" alt=""></span>
+                <span><img src="/img/admin/lnb_icons/lnb-feed.png" alt=""></span>
                 <a href="#lnk">피드 관리<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
             </div>
             <ul class="depth2">
@@ -39,7 +39,7 @@
             </ul>
             
             <div class="depth1 <c:if test="${history_list ne -1}">active</c:if>">
-                <span><img src="/img/admin/lnb_icons/user.png" alt=""></span>
+                <span><img src="/img/admin/lnb_icons/lnb-history.png" alt=""></span>
                 <a href="#lnk">코스이력 관리<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
             </div>
             <ul class="depth2">
@@ -47,7 +47,7 @@
             </ul>
             
             <div class="depth1 <c:if test="${event_list ne -1 || event_register ne -1}">active</c:if>">
-                <span><img src="/img/admin/lnb_icons/user.png" alt=""></span>
+                <span><img src="/img/admin/lnb_icons/lnb-event.png" alt=""></span>
                 <a href="#lnk">행사 관리<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
             </div>
             <ul class="depth2">
@@ -56,7 +56,7 @@
             </ul>
             
             <div class="depth1 <c:if test="${course_list ne -1 || course_register ne -1}">active</c:if>">
-                <span><img src="/img/admin/lnb_icons/user.png" alt=""></span>
+                <span><img src="/img/admin/lnb_icons/lnb-coarse.png" alt=""></span>
                 <a href="#lnk">코스 관리<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
             </div>
             <ul class="depth2">
