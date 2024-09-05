@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 	<c:import url="../main/head.jsp">
-    	<c:param name="pageTitle" value="사용자 리스트"/>
+    	<c:param name="pageTitle" value="행사 등록"/>
     </c:import>
     <body>
 	    

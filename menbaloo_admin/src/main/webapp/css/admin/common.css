@@ -164,7 +164,7 @@ input[type="date"]::after{
   content: '';
   width: 20px;
   height: 22px;
-  background: url(/front_img/date.png) center center / 100%;
+  background: url(/img/admin/date.png) center center / 100%;
   transform: translateY(-50%);
   z-index: 0;
 }
@@ -238,21 +238,21 @@ input[type=checkbox] + label {
     line-height: 100%; /* 14px */
     letter-spacing: -0.7px;
     background-repeat: no-repeat;
-    background-image: url('/front_img/uncheck.png');
+    background-image: url('/img/admin/uncheck.png');
     background-size: 10px;
     background-position: 0 2px;
 }
 input[type=checkbox]:checked + label {
-    background-image: url('/front_img/checked.png');
+    background-image: url('/img/admin/checked.png');
 }
 input.circleCheck[type=checkbox] + label { 
-    background-image: url('/front_img/uncheck2.png');
+    background-image: url('/img/admin/uncheck2.png');
     background-size: 12px;
     background-position: 0 1px;
     margin-left: 10px;
 }
 input.circleCheck[type=checkbox]:checked + label {
-    background-image: url('/front_img/checked2.png');
+    background-image: url('/img/admin/checked2.png');
 }
 .lableOnly{
     width: 12px;

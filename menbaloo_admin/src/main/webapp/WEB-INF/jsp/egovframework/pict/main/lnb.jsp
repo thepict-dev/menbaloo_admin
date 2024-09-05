@@ -16,6 +16,9 @@
 <c:set var="event_list" value="${fn:indexOf(url, 'event_list')}"/>
 <c:set var="event_register" value="${fn:indexOf(url, 'event_register')}"/>
 
+<c:set var="course_list" value="${fn:indexOf(url, 'course_list')}"/>
+<c:set var="course_register" value="${fn:indexOf(url, 'course_register')}"/>
+
 <div class="lnb">
     <nav>
         <div class="nav">
@@ -50,6 +53,15 @@
             <ul class="depth2">
                 <li class="<c:if test="${event_list ne -1}">active</c:if>"><a href="/event/event_list.do">행사 리스트</a></li>
                 <li class="<c:if test="${event_register ne -1}">active</c:if>"><a href="/event/event_register.do">행사 등록</a></li>
+            </ul>
+            
+            <div class="depth1 <c:if test="${course_list ne -1 || course_register ne -1}">active</c:if>">
+                <span><img src="/img/admin/lnb_icons/user.png" alt=""></span>
+                <a href="#lnk">코스 관리<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
+            </div>
+            <ul class="depth2">
+                <li class="<c:if test="${course_list ne -1}">active</c:if>"><a href="/course/course_list.do">코스 리스트</a></li>
+                <li class="<c:if test="${course_register ne -1}">active</c:if>"><a href="/course/course_register.do">코스 등록</a></li>
             </ul>
         </div>
     </nav>

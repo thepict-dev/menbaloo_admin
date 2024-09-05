@@ -158,6 +158,20 @@
     background-color: #fff;
 }
 
+/* 코스관리 리스트용 */
+.listHead.course{
+    display: grid;
+    grid-template-columns: 5% 5% 15% 5% 5% 10% 25% 10% 10% 10%;
+    text-align: center;
+}
+.listBody.course li{
+    display: grid;
+    grid-template-columns: 5% 5% 15% 5% 5% 10% 25% 10% 10% 10%;
+    text-align: center;
+    border-bottom: 1px solid var(--grey-100);
+    background-color: #fff;
+}
+
 .listBody li p, .listBody li > a{
     padding: 9px 0;
     font-size: 14px;

@@ -225,8 +225,81 @@ public class PictVO extends PictDefaultVO {
 	
 	private String event_date;
 	
+	private String administrative;
+	private String local;
+	private String length;
+	private String course_type;
+	private String send_type;
+	private String toilet;
+	
+	private String foot;
+	private String management;
+	private String vr_link;
+	private String thumb_url;
 	
 	
+	
+	
+	public String getAdministrative() {
+		return administrative;
+	}
+	public void setAdministrative(String administrative) {
+		this.administrative = administrative;
+	}
+	public String getLocal() {
+		return local;
+	}
+	public void setLocal(String local) {
+		this.local = local;
+	}
+	public String getLength() {
+		return length;
+	}
+	public void setLength(String length) {
+		this.length = length;
+	}
+	public String getCourse_type() {
+		return course_type;
+	}
+	public void setCourse_type(String course_type) {
+		this.course_type = course_type;
+	}
+	public String getSend_type() {
+		return send_type;
+	}
+	public void setSend_type(String send_type) {
+		this.send_type = send_type;
+	}
+	public String getToilet() {
+		return toilet;
+	}
+	public void setToilet(String toilet) {
+		this.toilet = toilet;
+	}
+	public String getFoot() {
+		return foot;
+	}
+	public void setFoot(String foot) {
+		this.foot = foot;
+	}
+	public String getManagement() {
+		return management;
+	}
+	public void setManagement(String management) {
+		this.management = management;
+	}
+	public String getVr_link() {
+		return vr_link;
+	}
+	public void setVr_link(String vr_link) {
+		this.vr_link = vr_link;
+	}
+	public String getThumb_url() {
+		return thumb_url;
+	}
+	public void setThumb_url(String thumb_url) {
+		this.thumb_url = thumb_url;
+	}
 	public String getEvent_date() {
 		return event_date;
 	}

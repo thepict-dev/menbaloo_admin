@@ -851,18 +851,25 @@ public class pictController {
 	}
 	@RequestMapping(value = "/course/course_save.do", method = RequestMethod.POST)
 	public String course_save(@ModelAttribute("pictVO") PictVO pictVO, ModelMap model, MultipartHttpServletRequest request,
-			@RequestParam("attach_file") MultipartFile attach_file) throws Exception {
+			@RequestParam("attach_file") MultipartFile attach_file,
+			@RequestParam("attach_file1") MultipartFile attach_file1) throws Exception {
 		String session = (String)request.getSession().getAttribute("id");
 		if(session == null || session == "null") {
 			return "redirect:/pict_login.do";
 		}
-		if(attach_file.getSize() != 0) {	//애드벌룬
+		if(attach_file.getSize() != 0) {	
 			String uploadPath = fileUpload(request, attach_file, (String)request.getSession().getAttribute("id"));
 			String filepath = "/user1/upload_file/menbaloo/";
 			String filename = uploadPath.split("#####")[1];
-			pictVO.setImage(filepath+filename);
+			pictVO.setThumb_url(filepath+filename);
 		}
-		//pictVO.setType(pictVO.getType().replaceAll(",", ""));
+		if(attach_file1.getSize() != 0) {
+			String uploadPath = fileUpload(request, attach_file1, (String)request.getSession().getAttribute("id"));
+			String filepath = "/user1/upload_file/menbaloo/";
+			String filename = uploadPath.split("#####")[1];
+			pictVO.setImage_url(filepath+filename);
+		}
+		
 		if(pictVO.getSaveType() != null && pictVO.getSaveType().equals("update")) {
 			pictService.course_update(pictVO);
 			model.addAttribute("message", "정상적으로 수정되었습니다.");
@@ -871,6 +878,7 @@ public class pictController {
 			return "pict/main/message";
 		}
 		else {
+			pictVO.setUse_at("Y");
 			pictService.course_insert(pictVO);
 			model.addAttribute("message", "정상적으로 저장되었습니다.");
 			model.addAttribute("retType", ":location");

@@ -173,10 +173,11 @@
 	
 	<!-- 코스 관리 -->
 	<select id="course_list_cnt" resultType="Integer">
-		SELECT count(e.idx)
+		SELECT count(c.idx)
 		FROM course_table c
 		
 		where 1=1
+		and use_at = 'Y'
 		<if test="search_text != null and search_text != ''">
 			and (
 				c.title LIKE CONCAT('%', #{search_text}, '%')
@@ -192,6 +193,7 @@
 				c.title LIKE CONCAT('%', #{search_text}, '%')
 			) 
 		</if>
+		and use_at = 'Y'
 		order by c.created_at desc
 		LIMIT #{limit} OFFSET #{startNumber}
 	</select>
@@ -212,21 +214,29 @@
 		local = #{local}, 
 		title =#{title}, 
 		address = #{address}, 
-		location = #{location}
-		<if test="image != null and image != ''">
-			, image = #{image}
+		length = #{length},
+		introduce = #{introduce},
+		course_type = #{course_type},
+		send_type = #{send_type},
+		toilet = #{toilet},
+		foot = #{foot},
+		management = #{management},
+		vr_link = #{vr_link}
+		<if test="thumb_url != null and thumb_url != ''">
+			, thumb_url = #{thumb_url}
 		</if>
-		,created_at = now()
+		, use_at = 'Y'
+		, created_at = now()
 		where idx = #{idx}
 	</update>
 	
 	<insert id="course_insert" parameterType="pictVO">
 		INSERT INTO course_table
 			(
-			 title, course_date, address, depart, location, image, created_at
+			 administrative, local, title, address, length, introduce, course_type, send_type, toilet, foot, management, vr_link, thumb_url, use_at, created_at
 			)
 		VALUES (
-			 #{title}, #{course_date}, #{address}, #{depart}, #{location}, #{image}, now()
+			 #{administrative}, #{local}, #{title}, #{address}, #{length}, #{introduce}, #{course_type}, #{send_type}, #{toilet}, #{foot}, #{management}, #{vr_link}, #{thumb_url}, #{use_at}, now()
 			  ) 
 	</insert>
 	
