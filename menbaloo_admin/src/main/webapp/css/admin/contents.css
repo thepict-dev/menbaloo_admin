@@ -173,6 +173,9 @@
 }
 
 .listBody li p, .listBody li > a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 9px 0;
     font-size: 14px;
     font-weight: 400;
