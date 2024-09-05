@@ -66,8 +66,8 @@
 		                            	<c:if test="${resultList.send_type eq '5'}">기타</c:if>
 	                            	</p>
 		                            <p>${resultList.address}</p>
-		                            <a href="#lnk">이미지확인</a>
-		                            <a href="#lnk">이미지확인</a>
+		                            <a href="#lnk" onclick="img_show('${resultList.thumb_url}')">이미지 확인</a>
+		                            <a href="#lnk" onclick="img_show('${resultList.image_url}')">이미지 확인</a>
 		                            <p class="delete"><a href="#lnk" onclick="menbal_del('${resultList.idx}')"></a></p>
 		                        </li>
 	                        </c:forEach>
@@ -102,8 +102,17 @@
 	    <form action="" id="register" name="register" method="post" enctype="multipart/form-data">
 			<input type='hidden' name="idx" id="idx" value='' />
 		</form>
+		<%@include file="../main/modal/img_modal.jsp" %>
 	</body>
 	<script>
+		function img_show(img_url){
+			if(img_url == '' || img_url == null || img_url == undefined){
+				alert("등록된 이미지가 없습니다.")
+				return false;
+			}
+			$('#imgModalWrapper').css("display", "flex");
+			$('#modal_img').attr("src", img_url)
+		}
 		function search_list(){
 			$("#search_fm").attr("action", "/course/course_list.do");
 			$("#search_fm").submit();

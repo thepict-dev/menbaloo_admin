@@ -4,10 +4,10 @@
 <%@ taglib prefix="ui"     uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<div class="imgModalWrapper">
+<div class="imgModalWrapper" style="display:none" id="imgModalWrapper">
 	<button type="button"><img src="/img/admin/close-wt.png" alt=""></button>
 	<div class="imgModalInner">
-		<img src="/img/admin/test.jpg" alt="">
+		<img src="/img/admin/test.jpg" alt="" id="modal_img">
 	</div>
 </div>
 

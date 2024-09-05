@@ -50,7 +50,7 @@
 		                            <p>${resultList.end}</p>
 		                            <p>${resultList.steps}</p>
 		                            <p>${resultList.created_at}</p>
-		                            <a href="#lnk" onclick="get_img('${resultList.feed_id}')">이미지확인</a>
+		                            <a href="#lnk" onclick="img_show('${resultList.image}')">이미지 확인</a>
 		                            <p class="delete"><a href="#lnk" onclick="menbal_del('${resultList.idx}')"></a></p>
 		                        </li>
 	                        </c:forEach>
@@ -86,10 +86,16 @@
 			<input type='hidden' name="idx" id="idx" value='' />
 			
 		</form>
+		<%@include file="../main/modal/img_modal.jsp" %>
 	</body>
 	<script>
-		function get_img(){
-			
+		function img_show(img_url){
+			if(img_url == '' || img_url == null || img_url == undefined){
+				alert("등록된 이미지가 없습니다.")
+				return false;
+			}
+			$('#imgModalWrapper').css("display", "flex");
+			$('#modal_img').attr("src", img_url)
 		}
 		function search_list(){
 			$("#search_fm").attr("action", "/history/history.do");

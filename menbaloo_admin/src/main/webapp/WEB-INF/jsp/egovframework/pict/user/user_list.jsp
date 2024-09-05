@@ -88,7 +88,7 @@
 	    <form action="" id="register" name="register" method="post" enctype="multipart/form-data">
 			<input type='hidden' name="idx" id="idx" value='' />
 		</form>
-		<%@include file="../main/modal/img_modal.jsp" %>
+		
 	</body>
 	<script>
 		function btn_excel(){

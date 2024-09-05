@@ -48,7 +48,7 @@
 		                            <p>${status.count}</p>
 		                            <p>${resultList.nickname}</p>
 		                            <p>${resultList.text}</p>
-		                            <p>image_url</p>
+		                            <a href="#lnk" onclick="img_show('${resultList.image_url}')">이미지 확인</a>
 		                            <p>${resultList.like_cnt}</p>
 		                            <p>
 		                            	<c:if test="${resultList.report_yn eq 0 || resultList.report_yn eq '0'}">N</c:if>
@@ -89,11 +89,20 @@
 	    </div>
 	    <form action="" id="register" name="register" method="post" enctype="multipart/form-data">
 			<input type='hidden' name="idx" id="idx" value='' />
-			
 		</form>
+		
+		<%@include file="../main/modal/img_modal.jsp" %>
 	</body>
 	<script>
-
+		function img_show(img_url){
+			console.log(img_url)
+			if(img_url == '' || img_url == null || img_url == undefined){
+				alert("등록된 이미지가 없습니다.")
+				return false;
+			}
+			$('#imgModalWrapper').css("display", "flex");
+			$('#modal_img').attr("src", img_url)
+		}
 		function search_list(){
 			$("#search_fm").attr("action", "/feed/feed_list.do");
 			$("#search_fm").submit();

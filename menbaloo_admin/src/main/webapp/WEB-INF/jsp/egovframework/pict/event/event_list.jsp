@@ -43,6 +43,7 @@
 	                        <li>장소</li>
 	                        <li>주최</li>
 	                        <li>지역</li>
+	                        <li>첨부 이미지</li>
 	                        <li>등록일</li>
 	                        <li>삭제</li>
 	                    </ul>
@@ -55,6 +56,7 @@
 		                            <p>${resultList.address}</p>
 		                            <p>${resultList.depart}</p>
 		                            <p>${resultList.location}</p>
+		                            <a href="#lnk" onclick="img_show('${resultList.thumb_url}')">이미지 확인</a>
 		                            <p>${resultList.created_at}</p>
 		                            <p class="delete"><a href="#lnk" onclick="menbal_del('${resultList.idx}')"></a></p>
 		                        </li>
@@ -91,7 +93,16 @@
 			<input type='hidden' name="idx" id="idx" value='' />
 		</form>
 	</body>
+	<%@include file="../main/modal/img_modal.jsp" %>
 	<script>
+		function img_show(img_url){
+			if(img_url == '' || img_url == null || img_url == undefined){
+				alert("등록된 이미지가 없습니다.")
+				return false;
+			}
+			$('#imgModalWrapper').css("display", "flex");
+			$('#modal_img').attr("src", img_url)
+		}
 		function search_list(){
 			$("#search_fm").attr("action", "/event/event_list.do");
 			$("#search_fm").submit();
