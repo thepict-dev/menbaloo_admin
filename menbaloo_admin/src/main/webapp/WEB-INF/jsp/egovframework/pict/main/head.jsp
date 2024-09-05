@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/css/admin/reset.css">
     <link rel="stylesheet" href="/css/admin/nice-select.css">
     <link rel="stylesheet" href="/css/admin/common.css">
+    <link rel="stylesheet" href="/css/admin/modal.css">
     <link rel="stylesheet" href="/css/admin/header.css">
     <link rel="stylesheet" href="/css/admin/lnb.css">
     <link rel="stylesheet" href="/css/admin/login.css">
