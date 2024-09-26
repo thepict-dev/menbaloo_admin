@@ -142,7 +142,7 @@
 	                    <div class="inputsContainer">
 	                        <div class="inputBox">
 	                            <p class="inputCaption">첨부 이미지
-	                                <label for="attach_file">파일추가</label>
+	                                <label for="attach_file1">파일추가</label>
 	                                <input type="file" id="attach_file1" name="attach_file1" multiple style="display: none;">
 	                            </p>
 	                            <ul class="fileList">
