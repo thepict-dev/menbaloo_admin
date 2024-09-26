@@ -207,7 +207,6 @@
 	</update>
 	
 	
-	<!-- 여기부터 작업 이어서 해야함 -->
 	<update id="course_update" parameterType="pictVO">
 		update course_table 
 		set administrative =#{administrative}, 
@@ -225,6 +224,10 @@
 		<if test="thumb_url != null and thumb_url != ''">
 			, thumb_url = #{thumb_url}
 		</if>
+		<if test="image_url != null and image_url != ''">
+			, image_url = #{image_url}
+		</if>
+		
 		, use_at = 'Y'
 		, created_at = now()
 		where idx = #{idx}
@@ -233,10 +236,71 @@
 	<insert id="course_insert" parameterType="pictVO">
 		INSERT INTO course_table
 			(
-			 administrative, local, title, address, length, introduce, course_type, send_type, toilet, foot, management, vr_link, thumb_url, use_at, created_at
+			 administrative, local, title, address, length, introduce, course_type, send_type, toilet, foot, management, vr_link, thumb_url, use_at, created_at, image_url
 			)
 		VALUES (
-			 #{administrative}, #{local}, #{title}, #{address}, #{length}, #{introduce}, #{course_type}, #{send_type}, #{toilet}, #{foot}, #{management}, #{vr_link}, #{thumb_url}, #{use_at}, now()
+			 #{administrative}, #{local}, #{title}, #{address}, #{length}, #{introduce}, #{course_type}, #{send_type}, #{toilet}, #{foot}, #{management}, #{vr_link}, #{thumb_url}, #{use_at}, now(), #{image_url}
+			  ) 
+	</insert>
+	
+	
+	
+	<!-- 팝업 관리 -->
+	<select id="popup_list_cnt" resultType="Integer">
+		SELECT count(c.idx)
+		FROM popup_table c
+		
+		where 1=1
+		and use_at = 'Y'
+		<if test="search_text != null and search_text != ''">
+			and (
+				c.title LIKE CONCAT('%', #{search_text}, '%')
+			) 
+		</if>
+	</select>
+	
+	<select id="popup_list" resultType="pictVO">
+		select * from popup_table c
+		where 1=1
+		<if test="search_text != null and search_text != ''">
+			and (
+				c.title LIKE CONCAT('%', #{search_text}, '%')
+			) 
+		</if>
+		and use_at = 'Y'
+		order by c.created_at desc
+		LIMIT #{limit} OFFSET #{startNumber}
+	</select>
+	
+	<select id="popup_list_one" resultType="pictVO">
+		select * from popup_table where idx = #{idx}
+	</select>
+	
+	<update id="popup_delete" parameterType="pictVO">
+		update popup_table set use_at = 'N' where idx= #{idx}
+	</update>
+	
+	
+	<update id="popup_update" parameterType="pictVO">
+		update popup_table 
+		set 
+		title=#{title}, 
+		link_url =#{link_url}
+		<if test="image_url != null and image_url != ''">
+			, image_url = #{image_url}
+		</if>
+		, use_at = 'Y'
+		, created_at = now()
+		where idx = #{idx}
+	</update>
+	
+	<insert id="popup_insert" parameterType="pictVO">
+		INSERT INTO popup_table
+			(
+			 title, link_url, image_url, use_at, length, created_at
+			)
+		VALUES (
+			 #{title}, #{link_url}, #{image_url}, 'Y', now()
 			  ) 
 	</insert>
 	

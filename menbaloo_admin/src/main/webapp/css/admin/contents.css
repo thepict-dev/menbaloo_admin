@@ -172,6 +172,20 @@
     background-color: #fff;
 }
 
+/* 팝업관리 리스트용 */
+.listHead.popup{
+    display: grid;
+    grid-template-columns: 10% 20% 30% 20% 20%;
+    text-align: center;
+}
+.listBody.popup li{
+    display: grid;
+    grid-template-columns: 10% 20% 30% 20% 20%;
+    text-align: center;
+    border-bottom: 1px solid var(--grey-100);
+    background-color: #fff;
+}
+
 .listBody li p, .listBody li > a{
     display: flex;
     align-items: center;

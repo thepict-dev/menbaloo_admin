@@ -203,6 +203,42 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 		pictMapper.course_delete(pictVO);
 	}
 
+	@Override
+	public Integer popup_list_cnt(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
+		return pictMapper.popup_list_cnt(pictVO);
+	}
+
+	@Override
+	public List<PictVO> popup_list(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
+		return pictMapper.popup_list(pictVO);
+	}
+
+	@Override
+	public PictVO popup_list_one(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
+		return pictMapper.popup_list_one(pictVO);
+	}
+
+	@Override
+	public void popup_update(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
+		pictMapper.popup_update(pictVO);
+	}
+
+	@Override
+	public void popup_insert(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
+		pictMapper.popup_insert(pictVO);
+	}
+
+	@Override
+	public void popup_delete(PictVO pictVO) throws Exception {
+		// TODO Auto-generated method stub
+		pictMapper.popup_delete(pictVO);
+	}
+
 
 
 }

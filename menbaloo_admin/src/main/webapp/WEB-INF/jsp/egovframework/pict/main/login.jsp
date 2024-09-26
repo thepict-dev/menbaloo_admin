@@ -14,7 +14,7 @@
 	        <div class="loginInner">
 	            <form class="loginContents" action="#" id="entryForm" name="entryForm" method="post">
 	                <div class="loginTitle">
-	                    <h1>프로젝트 이름이 이곳에 축약</h1>
+	                    <h1>맨발루</h1>
 	                    <h2>로그인</h2>
 	                </div>
 	                <div class="loginInputs">

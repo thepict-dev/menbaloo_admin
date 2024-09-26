@@ -19,6 +19,9 @@
 <c:set var="course_list" value="${fn:indexOf(url, 'course_list')}"/>
 <c:set var="course_register" value="${fn:indexOf(url, 'course_register')}"/>
 
+<c:set var="popup_list" value="${fn:indexOf(url, 'popup_list')}"/>
+<c:set var="popup_register" value="${fn:indexOf(url, 'popup_register')}"/>
+
 <div class="lnb">
     <nav>
         <div class="nav">
@@ -62,6 +65,15 @@
             <ul class="depth2">
                 <li class="<c:if test="${course_list ne -1}">active</c:if>"><a href="/course/course_list.do">코스 리스트</a></li>
                 <li class="<c:if test="${course_register ne -1}">active</c:if>"><a href="/course/course_register.do">코스 등록</a></li>
+            </ul>
+            
+            <div class="depth1 <c:if test="${feed_list ne -1}">active</c:if>">
+                <span><img src="/img/admin/lnb_icons/lnb-feed.png" alt=""></span>
+                <a href="#lnk">팝업 관리<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
+            </div>
+            <ul class="depth2">
+                <li class="<c:if test="${popup_list ne -1}">active</c:if>"><a href="/popup/popup_list.do">팝업 리스트</a></li>
+                <li class="<c:if test="${popup_register ne -1}">active</c:if>"><a href="/popup/popup_register.do">팝업 등록</a></li>
             </ul>
         </div>
     </nav>
