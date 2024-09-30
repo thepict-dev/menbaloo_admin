@@ -321,13 +321,8 @@
 }
 
 .fileList{
-    display: flex;
-    column-gap: 9px;
-    padding-bottom: 16px;
-}
-.fileList li{
     position: relative;
-    display: flex;
+    display: none;
     align-items: center;
     column-gap: 10px;
     width: 190px;
@@ -335,7 +330,7 @@
     border: 1px solid var(--grey-100);
     background: var(--grey-50);
 }
-.fileList li p{
+.fileList p{
     width: 120px;
     padding-left: 20px;
     color: var(--text-color);
@@ -347,7 +342,10 @@
     text-overflow: ellipsis;
     word-break: break-all;
 }
-.fileList li img{
+.fileList button{
+	cursor: pointer;
+}
+.fileList img{
     position: absolute;
     right: 20px;
     top: 50%;
